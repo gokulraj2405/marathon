@@ -1,0 +1,82 @@
+package marathon1;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class AbhiBus {
+
+	public static void main(String[] args) {
+		ChromeDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+
+		// driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.get("https://www.abhibus.com/");
+
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+
+		WebElement bus = driver.findElement(By.id("pills-home-tab"));
+		bus.click();
+
+		WebElement from = driver.findElement(By.id("source"));
+		from.sendKeys("Chen");
+
+		WebElement clickpopup = driver.findElement(By.xpath("/html/body/ul[1]/li[1]"));
+		clickpopup.click();
+
+		WebElement to = driver.findElement(By.id("destination"));
+		to.sendKeys("Banga");
+
+		WebElement clickpopupto = driver.findElement(By.xpath("/html/body/ul[2]/li[1]"));
+		clickpopupto.click();
+
+		WebElement date = driver.findElement(By.xpath(
+				"/html/body/header/section/div/div/div/div/div/div[1]/form/div/div[4]/a/div/div/div[2]/div/input"));
+		date.click();
+		driver.findElement(By.xpath("/html/body/div[5]/div[1]/table/tbody/tr[5]/td[5]/a")).click();
+
+		WebElement search = driver
+				.findElement(By.xpath("/html/body/header/section/div/div/div/div/div/div[1]/form/div/div[5]/a"));
+		search.click();
+
+		String busname = driver.findElement(By.xpath("//h2[@class='TravelAgntNm ng-binding']")).getText();
+		System.out.println(" the name of the first resulting bus :" + busname);
+
+		WebElement bustype = driver.findElement(By.xpath("(//input[@name='Bustypes'])[4]"));
+		bustype.click();
+
+		WebElement selectseats = driver.findElement(By.xpath("//span[text()='Select Seat']"));
+		selectseats.click();
+
+		WebElement choseseat = driver.findElement(By.xpath("(//a[@class='tooltip tooltipstered'])[3]"));
+		choseseat.click();
+		System.out.println("seat selected :" + choseseat.getText());
+		String totalfare = driver.findElement(By.xpath(
+				"/html/body/div[3]/div/div[3]/div/div/div[2]/strong/strong/div/div/div[1]/div[1]/div[5]/div[2]/div/div[2]/form/div[1]/div[2]/p[1]"))
+				.getText();
+		System.out.println(totalfare);
+
+		WebElement boardingpoint = driver.findElement(By.xpath("//select[@class='dropdown_custom']"));
+		Select boarding = new Select(boardingpoint);
+		boarding.selectByIndex(1);
+
+		WebElement droppingpoint = driver.findElement(By.xpath("(//select[@class='dropdown_custom'])[2]"));
+		Select dropping = new Select(droppingpoint);
+		dropping.selectByIndex(3);
+
+		WebElement payment = driver.findElement(By.xpath("(//input[@name='submit'])[2]"));
+		payment.click();
+		System.out.println(driver.getTitle());
+		
+	WebElement phonenumber =	driver.findElement(By.id("mobileNumber"));
+	phonenumber.sendKeys("7010070030");
+	
+	WebElement sendotp = driver.findElement(By.id("SignInPassAjx"));
+	sendotp.click();
+
+	}
+}
