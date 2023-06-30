@@ -1,0 +1,94 @@
+package marathon1;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class PvrCinemas {
+
+	public static void main(String[] args) throws InterruptedException {
+		ChromeDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.get("https://www.pvrcinemas.com/");
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+
+		WebElement movielibrary = driver.findElement(By.xpath("//div[text()='Movie Library ']"));
+		movielibrary.click();
+		Thread.sleep(2000);
+
+		WebElement city = driver.findElement(By.name("city"));
+		Select selectcity = new Select(city);
+		selectcity.selectByVisibleText("Chennai");
+
+		WebElement genere = driver.findElement(By.name("genre"));
+		Select selectgenere = new Select(genere);
+		selectgenere.selectByVisibleText("ANIMATION");
+
+		WebElement language = driver.findElement(By.name("lang"));
+		Select selectlanguage = new Select(language);
+		selectlanguage.selectByVisibleText("ENGLISH");
+
+		WebElement applybutton = driver.findElement(By.xpath("//button[contains(@class,'btn btn-submit')]"));
+		applybutton.click();
+
+		Thread.sleep(4000);
+
+		WebElement firstresultingmovie = driver.findElement(By.xpath("//div[text()='Paw Patrol']"));
+		firstresultingmovie.click();
+
+		Thread.sleep(3000);
+
+		WebElement proceedtobook = driver.findElement(By.xpath("//button[text()='Proceed To Book']"));
+		proceedtobook.click();
+		Thread.sleep(3000);
+
+		WebElement cinema = driver.findElement(By.name("cinemaName"));
+		Select location = new Select(cinema);
+		location.selectByIndex(3);
+
+		WebElement date = driver.findElement(By.xpath("(//input[contains(@class,'ng-pristine ng-valid')])[3]"));
+		date.click();
+		driver.findElement(By.xpath("//span[text()='6']")).click();
+
+		WebElement timing = driver.findElement(By.name("timings"));
+		Select showtiming = new Select(timing);
+		showtiming.selectByIndex(1);
+
+		WebElement noofseats = driver.findElement(By.xpath("(//input[@type='text'])[7]"));
+		noofseats.sendKeys("2");
+
+		WebElement name = driver.findElement(By.xpath("//label[text()='No. of Seats']/following::input"));
+		name.sendKeys("gokulraj");
+
+		WebElement email = driver.findElement(By.xpath("//label[text()='Name']/following::input"));
+		email.sendKeys("gkrajg@outlook.com");
+
+		WebElement mobilenumber = driver.findElement(By.xpath("//label[text()='Email']/following::input"));
+		mobilenumber.sendKeys("7010070030");
+
+		WebElement food = driver.findElement(By.name("food"));
+		Select fb = new Select(food);
+		fb.selectByIndex(0);
+
+		WebElement or = driver.findElement(By.xpath("//label[text()='F&B Requirements']/following::input"));
+		or.sendKeys("center seat");
+
+		WebElement checkbox = driver.findElement(By.xpath("//div[@class='form-group col-sm-6']//label[1]"));
+		checkbox.click();
+
+		WebElement sendreq = driver.findElement(By.xpath("(//button[contains(@class,'btn btn-primary')])[2]"));
+		sendreq.click();
+
+		WebElement otpcancel = driver.findElement(By.xpath("(//button[text()='CANCEL'])[2]"));
+		otpcancel.click();
+		System.out.println(driver.getTitle());
+
+	}
+
+}
