@@ -1,0 +1,57 @@
+package marathon1;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class AmazonBags {
+
+	public static void main(String[] args) throws InterruptedException {
+		ChromeDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.get(" https://www.amazon.in/");
+		driver.manage().window().maximize();
+
+		WebElement searchbox = driver.findElement(By.id("twotabsearchtextbox"));
+		searchbox.sendKeys("bags");
+
+		WebElement suggestion = driver.findElement(By.xpath("//div[@aria-label='bags for boys']"	));
+		suggestion.click();
+
+		WebElement results = driver
+				.findElement(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']/span"));
+		String Bagresults = results.getText();
+		System.out.println(Bagresults);
+		Thread.sleep(3000);
+
+		WebElement funblast = driver.findElement(By.xpath("(//i[@class='a-icon a-icon-checkbox'])[7]"));
+		funblast.click();
+		Thread.sleep(3000);
+
+		WebElement skybags = driver.findElement(By.xpath("(//i[@class='a-icon a-icon-checkbox'])[2]"));
+		skybags.click();
+		Thread.sleep(3000);
+
+		WebElement sort = driver.findElement(By.xpath("//span[@class='a-dropdown-prompt']"));
+		sort.click();
+
+		WebElement newarrivals = driver.findElement(By.partialLinkText("Newest Arrivals"));
+		newarrivals.click();
+		
+	String firstresultingbag =	driver.findElement(By.xpath("//span[@class='a-size-base-plus a-color-base a-text-normal']")).getText();
+    System.out.println("first resulting bag :" + firstresultingbag);
+    
+   String bagprice = driver.findElement(By.xpath("(//span[@class='a-price-whole'])[1]")).getText();
+   System.out.println("Price of the bag" + bagprice);
+   
+   String MRP = driver.findElement(By.xpath("(//span[@class='a-price a-text-price'])[1]")).getText();
+   System.out.println("MRP rate" + MRP);
+   
+   System.out.println(driver.getTitle());
+	}
+
+}
